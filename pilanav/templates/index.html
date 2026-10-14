@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PilaNav · Simulador de navegador</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232338E8'/%3E%3Crect x='6' y='7' width='20' height='5' rx='2' fill='%23FFD23F'/%3E%3Crect x='6' y='14' width='20' height='4' rx='2' fill='%23fff' fill-opacity='.8'/%3E%3Crect x='6' y='20' width='20' height='4' rx='2' fill='%23fff' fill-opacity='.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="head">
+      <h1 class="brand">PilaNav</h1>
+      <p class="tagline">El último que entra es el primero que sale.</p>
+    </header>
+
+    <div class="bar" role="group" aria-label="Barra del navegador">
+      <button id="bar-back" class="bar-back" type="button" aria-label="Regresar a la página anterior" disabled>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="bar-url" id="bar-url" title="Página actual">about:blank</div>
+      <div class="bar-count" id="bar-count">0 páginas</div>
+    </div>
+
+    <main class="grid">
+      <nav class="menu" aria-label="Menú">
+        <h2 class="col-title">Menú</h2>
+        <ul class="cmds">
+          <li><button class="cmd" type="button" data-cmd="1"><span class="num">1</span><span class="txt"><b>Visitar una página web</b><small>La agrega arriba de la pila</small></span></button></li>
+          <li><button class="cmd" type="button" data-cmd="2"><span class="num">2</span><span class="txt"><b>Regresar a la página anterior</b><small>Saca la de arriba</small></span></button></li>
+          <li><button class="cmd" type="button" data-cmd="3"><span class="num">3</span><span class="txt"><b>Mostrar la página actual</b><small>La de arriba, sin sacarla</small></span></button></li>
+          <li><button class="cmd" type="button" data-cmd="4"><span class="num">4</span><span class="txt"><b>Mostrar el historial</b><small>De la actual a la primera</small></span></button></li>
+          <li><button class="cmd" type="button" data-cmd="5"><span class="num">5</span><span class="txt"><b>Verificar o eliminar historial</b><small>Revisa si está vacío o bórralo</small></span></button></li>
+          <li><button class="cmd" type="button" data-cmd="6"><span class="num">6</span><span class="txt"><b>Salir del programa</b><small>Cierra la sesión</small></span></button></li>
+        </ul>
+        <p class="hint">Atajo: presiona la tecla del número.</p>
+      </nav>
+
+      <section class="console" aria-labelledby="console-title">
+        <h2 class="col-title" id="console-title">Resultado</h2>
+        <div id="console-body" class="card"></div>
+      </section>
+
+      <aside class="stack" aria-labelledby="stack-title">
+        <h2 class="col-title" id="stack-title">La pila</h2>
+        <p id="stack-empty" class="stack-empty" hidden>No hay páginas. Usa la opción 1 para visitar una.</p>
+        <ol id="stack" class="stack-list" aria-label="Páginas, de la más reciente a la más antigua"></ol>
+        <div class="base" aria-hidden="true"></div>
+        <p class="base-label">Fondo de la pila</p>
+      </aside>
+    </main>
+  </div>
+
+  <div id="bye" class="bye" role="dialog" aria-modal="true" aria-labelledby="bye-title" hidden>
+    <div class="bye-card">
+      <h2 id="bye-title">Sesión cerrada</h2>
+      <p id="bye-text"></p>
+      <button id="bye-btn" class="btn" type="button">Empezar de nuevo</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

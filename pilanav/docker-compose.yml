@@ -1,0 +1,7 @@
+services:
+  pilanav:
+    build: .
+    container_name: pilanav
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
